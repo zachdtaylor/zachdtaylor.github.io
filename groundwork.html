@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Groundwork — Stop Spiraling. Think Clearly.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #0d0d0d;
+  --paper: #f2ede6;
+  --paper-dark: #e8e1d5;
+  --rust: #c4502a;
+  --rust-light: #e8c4b8;
+  --muted: #6b6560;
+  --border: #0d0d0d;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 2.5rem;
+  background: var(--paper);
+  border-bottom: 1.5px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+nav a {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink);
+  border: 1.5px solid var(--border);
+  padding: 0.55rem 1.25rem;
+  transition: all 0.2s;
+}
+
+nav a:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  padding: 8rem 2.5rem 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  border-bottom: 1.5px solid var(--border);
+}
+
+.hero-left {
+  padding-bottom: 3rem;
+}
+
+.hero-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hero-label::before {
+  content: '';
+  display: inline-block;
+  width: 2rem;
+  height: 1.5px;
+  background: var(--rust);
+}
+
+.hero-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  line-height: 0.95;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 2.5rem;
+}
+
+.hero-headline em {
+  font-style: italic;
+  color: var(--rust);
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 36ch;
+  font-weight: 300;
+}
+
+.hero-right {
+  border-left: 1.5px solid var(--border);
+  padding-left: 4rem;
+  padding-bottom: 3rem;
+}
+
+.hero-offer-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.hero-offer-box {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.offer-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.offer-details {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+  line-height: 2;
+}
+
+.cta-btn {
+  display: block;
+  width: 100%;
+  padding: 1.25rem;
+  background: var(--rust);
+  color: #fff;
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cta-btn:hover {
+  background: #a33e20;
+}
+
+/* MARQUEE */
+.marquee-bar {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 1rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+  border-bottom: 1.5px solid var(--border);
+}
+
+.marquee-inner {
+  display: inline-block;
+  animation: marquee 20s linear infinite;
+}
+
+.marquee-inner span {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin: 0 2rem;
+}
+
+.marquee-inner .dot {
+  color: var(--rust);
+  margin: 0 2rem;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* PROBLEM */
+.problem {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1.5px solid var(--border);
+}
+
+.problem-left {
+  padding: 5rem 2.5rem 5rem;
+  border-right: 1.5px solid var(--border);
+}
+
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+}
+
+.problem-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 2rem;
+}
+
+.problem-body {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--muted);
+  max-width: 44ch;
+  font-weight: 300;
+}
+
+.problem-right {
+  padding: 5rem 2.5rem 5rem;
+  background: var(--paper-dark);
+}
+
+.symptom-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.symptom-list li {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #c8c0b5;
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.symptom-list li:last-child { border-bottom: none; }
+
+.symptom-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--rust);
+  padding-top: 0.2rem;
+}
+
+.symptom-text {
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+/* METHOD */
+.method {
+  padding: 6rem 2.5rem;
+  border-bottom: 1.5px solid var(--border);
+}
+
+.method-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-bottom: 4rem;
+}
+
+.method-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.method-desc {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--muted);
+  font-weight: 300;
+  align-self: end;
+}
+
+.method-steps {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+  border: 1.5px solid var(--border);
+}
+
+.step {
+  padding: 2rem 1.25rem;
+  border-right: 1.5px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.step:last-child { border-right: none; }
+
+.step:hover .step-bg {
+  transform: scaleY(1);
+}
+
+.step-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.3s ease;
+  z-index: 0;
+}
+
+.step > * { position: relative; z-index: 1; }
+
+.step:hover .step-num,
+.step:hover .step-name,
+.step:hover .step-desc { color: var(--paper); }
+
+.step-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--rust);
+  margin-bottom: 1.5rem;
+  transition: color 0.3s;
+}
+
+.step-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  transition: color 0.3s;
+}
+
+.step-desc {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--muted);
+  transition: color 0.3s;
+}
+
+/* DIFFERENTIATORS */
+.diff {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-bottom: 1.5px solid var(--border);
+}
+
+.diff-col {
+  padding: 4rem 2.5rem;
+  border-right: 1.5px solid var(--border);
+}
+
+.diff-col:last-child { border-right: none; }
+
+.diff-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.75rem;
+  margin-bottom: 2rem;
+  display: inline-block;
+}
+
+.diff-tag.not {
+  background: var(--rust-light);
+  color: var(--rust);
+}
+
+.diff-tag.yes {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.diff-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.diff-body {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+/* CTA */
+.final-cta {
+  padding: 8rem 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+.cta-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+}
+
+.cta-headline em {
+  font-style: italic;
+  color: var(--rust);
+}
+
+.cta-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.cta-price {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.cta-guarantee {
+  font-size: 0.88rem;
+  color: var(--muted);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.testimonial-block {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: var(--paper-dark);
+  border-left: 3px solid var(--rust);
+}
+
+.testimonial-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.testimonial-attr {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+/* FOOTER */
+footer {
+  border-top: 1.5px solid var(--border);
+  padding: 2rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+footer p {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(2rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-left > * {
+  animation: fadeUp 0.8s ease both;
+}
+
+.hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+.hero-left > *:nth-child(2) { animation-delay: 0.25s; }
+.hero-left > *:nth-child(3) { animation-delay: 0.4s; }
+.hero-right { animation: fadeUp 0.8s ease 0.5s both; }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { border-left: none; border-top: 1.5px solid var(--border); padding-left: 0; padding-top: 3rem; }
+  .problem { grid-template-columns: 1fr; }
+  .problem-left { border-right: none; border-bottom: 1.5px solid var(--border); }
+  .method-header { grid-template-columns: 1fr; }
+  .method-steps { grid-template-columns: repeat(2, 1fr); }
+  .step { border-bottom: 1.5px solid var(--border); }
+  .diff { grid-template-columns: 1fr; }
+  .diff-col { border-right: none; border-bottom: 1.5px solid var(--border); }
+  .final-cta { grid-template-columns: 1fr; }
+  nav { padding: 1rem 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Groundwork</div>
+  <a href="#join">Reserve a Seat →</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-label">For developers overwhelmed by AI noise</div>
+    <h1 class="hero-headline">Stop<br><em>spiraling.</em><br>Start<br>thinking.</h1>
+    <p class="hero-sub">You don't need another take on AI. You need to trust your own thinking again — and stop outsourcing your mind to every opinion on the internet.</p>
+  </div>
+  <div class="hero-right">
+    <p class="hero-offer-label">The Live Group</p>
+    <div class="hero-offer-box">
+      <p class="offer-title">Groundwork: Clarity for Developers in the Age of AI</p>
+      <div class="offer-details">
+        Small group · Live sessions · 6 weeks<br>
+        Process fear · Cut noise · Decide clearly<br>
+        Designed for software developers
+      </div>
+    </div>
+    <a href="#join" class="cta-btn">Apply for the Next Cohort</a>
+  </div>
+</section>
+
+<div class="marquee-bar">
+  <div class="marquee-inner">
+    <span>Clarity over noise</span><span class="dot">◆</span>
+    <span>Trust your thinking</span><span class="dot">◆</span>
+    <span>Process uncertainty</span><span class="dot">◆</span>
+    <span>Take grounded action</span><span class="dot">◆</span>
+    <span>Stop spiraling</span><span class="dot">◆</span>
+    <span>Think clearly</span><span class="dot">◆</span>
+    <span>Clarity over noise</span><span class="dot">◆</span>
+    <span>Trust your thinking</span><span class="dot">◆</span>
+    <span>Process uncertainty</span><span class="dot">◆</span>
+    <span>Take grounded action</span><span class="dot">◆</span>
+    <span>Stop spiraling</span><span class="dot">◆</span>
+    <span>Think clearly</span><span class="dot">◆</span>
+  </div>
+</div>
+
+<section class="problem">
+  <div class="problem-left">
+    <p class="section-label">01 — The Problem</p>
+    <h2 class="problem-headline">The noise isn't the real problem.</h2>
+    <p class="problem-body">There's always been noise. The real problem is that you've stopped trusting your own thinking. Every new take makes you second-guess yourself. Every prediction makes you panic. You're not looking for information — you're looking for someone to tell you what to think.<br><br>That outsourcing is making it worse.</p>
+  </div>
+  <div class="problem-right">
+    <p class="section-label">Sound familiar?</p>
+    <ul class="symptom-list">
+      <li>
+        <span class="symptom-num">01</span>
+        <span class="symptom-text">You've read 50 articles about AI and your career and feel more confused than before</span>
+      </li>
+      <li>
+        <span class="symptom-num">02</span>
+        <span class="symptom-text">You oscillate between "everything's fine" and "my career is over" depending on who you talked to last</span>
+      </li>
+      <li>
+        <span class="symptom-num">03</span>
+        <span class="symptom-text">You overthink every decision and keep waiting to feel certain before you act</span>
+      </li>
+      <li>
+        <span class="symptom-num">04</span>
+        <span class="symptom-text">You know the panic isn't helping but you can't seem to stop it</span>
+      </li>
+      <li>
+        <span class="symptom-num">05</span>
+        <span class="symptom-text">You wish someone would just tell you what to do — but you also know that's not really what you need</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="method">
+  <div class="method-header">
+    <div>
+      <p class="section-label">02 — The Method</p>
+      <h2 class="method-headline">From panic to grounded action — one step at a time.</h2>
+    </div>
+    <p class="method-desc">Not a productivity system. Not a course about AI. A structured process for moving through uncertainty — processing what's real, letting go of what isn't, and choosing clear next steps.</p>
+  </div>
+  <div class="method-steps">
+    <div class="step">
+      <div class="step-bg"></div>
+      <p class="step-num">01</p>
+      <p class="step-name">Safety</p>
+      <p class="step-desc">Space to be honest without judgment</p>
+    </div>
+    <div class="step">
+      <div class="step-bg"></div>
+      <p class="step-num">02</p>
+      <p class="step-name">Feel</p>
+      <p class="step-desc">Acknowledge fear instead of bypassing it</p>
+    </div>
+    <div class="step">
+      <div class="step-bg"></div>
+      <p class="step-num">03</p>
+      <p class="step-name">Clarify</p>
+      <p class="step-desc">Name what you're actually afraid of</p>
+    </div>
+    <div class="step">
+      <div class="step-bg"></div>
+      <p class="step-num">04</p>
+      <p class="step-name">Think</p>
+      <p class="step-desc">Separate signal from noise, test assumptions</p>
+    </div>
+    <div class="step">
+      <div class="step-bg"></div>
+      <p class="step-num">05</p>
+      <p class="step-name">Separate</p>
+      <p class="step-desc">Distinguish what's in your control from what isn't</p>
+    </div>
+    <div class="step">
+      <div class="step-bg"></div>
+      <p class="step-num">06</p>
+      <p class="step-name">Accept</p>
+      <p class="step-desc">Let go of false control and grieve what's uncertain</p>
+    </div>
+    <div class="step">
+      <div class="step-bg"></div>
+      <p class="step-num">07</p>
+      <p class="step-name">Act</p>
+      <p class="step-desc">Choose the next right step — just one</p>
+    </div>
+  </div>
+</section>
+
+<section class="diff">
+  <div class="diff-col">
+    <span class="diff-tag not">Not this</span>
+    <h3 class="diff-headline">Another AI course</h3>
+    <p class="diff-body">You don't need more information about AI. You need to process what you're feeling and think clearly about what it means for you, specifically.</p>
+  </div>
+  <div class="diff-col">
+    <span class="diff-tag not">Not this</span>
+    <h3 class="diff-headline">Career advice or predictions</h3>
+    <p class="diff-body">No one knows exactly what's going to happen. Anyone who tells you they do is selling certainty you don't need — and shouldn't trust.</p>
+  </div>
+  <div class="diff-col">
+    <span class="diff-tag yes">This</span>
+    <h3 class="diff-headline">Learning to think for yourself</h3>
+    <p class="diff-body">A structured process for moving from panic to clarity — so you can make decisions you trust, not decisions borrowed from someone else's confidence.</p>
+  </div>
+</section>
+
+<section class="final-cta" id="join">
+  <div>
+    <h2 class="cta-headline">Ready to do the<br><em>Groundwork?</em></h2>
+    <div class="testimonial-block">
+      <p class="testimonial-text">"I stopped reading AI Twitter after one session. Not because I was told to — because I realized it wasn't actually helping me think."</p>
+      <p class="testimonial-attr">— Senior Engineer, 12 years experience</p>
+    </div>
+  </div>
+  <div class="cta-right">
+    <p class="cta-price">Small cohort · Live sessions · Application required</p>
+    <a href="#" class="cta-btn">Apply for the Next Group</a>
+    <p class="cta-guarantee">Applications are reviewed personally. You'll hear back within 48 hours. This isn't for everyone — it's for people ready to stop outsourcing their thinking.</p>
+  </div>
+</section>
+
+<footer>
+  <p>Groundwork © 2025</p>
+  <p>For developers. By someone who's been there.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Own Your Mind — 6-Week Cohort</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0e0d0b;
+    --paper: #f2ede6;
+    --red: #c1341a;
+    --muted: #7a7368;
+    --rule: rgba(14,13,11,0.13);
+    --rule-strong: rgba(14,13,11,0.25);
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* GRAIN */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.55;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    border-bottom: 2.5px solid var(--ink);
+    padding: 1.1rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    animation: fadeDown 0.5s ease both;
+  }
+  .masthead-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .masthead-right {
+    display: flex;
+    align-items: baseline;
+    gap: 2rem;
+  }
+  .masthead-seats {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--red);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--rule-strong);
+    animation: fadeUp 0.8s ease 0.15s both;
+  }
+  .hero-left {
+    padding: 5.5rem 3rem 5.5rem 3rem;
+    border-right: 1px solid var(--rule-strong);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .hero-right {
+    padding: 5.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+  }
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1.75rem;
+    display: block;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.8rem, 7.5vw, 6.8rem);
+    font-weight: 900;
+    line-height: 0.93;
+    letter-spacing: -0.02em;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--red);
+  }
+  .hero-vol {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-top: 2.5rem;
+  }
+  .hero-lede {
+    font-size: 1.08rem;
+    line-height: 1.78;
+    color: var(--muted);
+    max-width: 40ch;
+  }
+  .hero-callout {
+    border-left: 3px solid var(--red);
+    padding: 1.4rem 1.75rem;
+    background: rgba(193,52,26,0.04);
+  }
+  .hero-callout p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.18rem;
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+
+  /* ── GENERIC SECTION SHELL ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .col-label {
+    padding: 4rem 2rem 4rem 3rem;
+    border-right: 1px solid var(--rule-strong);
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
+  .col-label span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+  .col-body {
+    padding: 4rem 3rem;
+  }
+
+  /* ── THE PROBLEM ── */
+  .problem-body p {
+    font-size: 1.08rem;
+    line-height: 1.9;
+    max-width: 62ch;
+    margin-bottom: 1.4rem;
+  }
+  .problem-body p:last-child { margin-bottom: 0; }
+  .pull-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.55rem;
+    font-style: italic;
+    line-height: 1.42;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    padding: 1.8rem 0;
+    margin: 2.5rem 0;
+    max-width: 48ch;
+    color: var(--ink);
+  }
+
+  /* ── CURRICULUM ── */
+  .week-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .week-item {
+    padding: 2rem 2rem 2rem 0;
+    border-bottom: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+  }
+  .week-item:nth-child(even) {
+    padding-left: 2rem;
+    border-right: none;
+  }
+  .week-item:nth-last-child(-n+2) { border-bottom: none; }
+  .week-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.6rem;
+  }
+  .week-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.12rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+  .week-desc {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ── WHAT YOU GET ── */
+  .bonus-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .bonus-item {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 1rem;
+    padding: 1.4rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .bonus-item:last-child { border-bottom: none; }
+  .bonus-mark {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--red);
+    padding-top: 0.15rem;
+  }
+  .bonus-text strong {
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  .bonus-text p {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ── GUARANTEE ── */
+  .guarantee-body p {
+    font-size: 1.08rem;
+    line-height: 1.88;
+    max-width: 56ch;
+    margin-bottom: 1rem;
+  }
+  .guarantee-body p:last-child { margin-bottom: 0; }
+
+  /* ── PRICE BLOCK ── */
+  .price-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    animation: fadeUp 0.8s ease 0.6s both;
+  }
+  .price-left {
+    padding: 5rem 3rem;
+    border-right: 1px solid var(--rule-strong);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 3rem;
+  }
+  .price-right {
+    padding: 5rem 3rem;
+    background: var(--ink);
+    color: var(--paper);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 3rem;
+  }
+  .price-figure {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.2rem, 6vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .price-alt {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-top: 0.4rem;
+  }
+  .scarcity-line {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--red);
+    margin-bottom: 1.5rem;
+  }
+  .cta-btn {
+    display: inline-block;
+    background: var(--red);
+    color: var(--paper);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.05rem 2.25rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    align-self: flex-start;
+  }
+  .cta-btn:hover { background: #a82d16; transform: translateY(-2px); }
+  .price-right-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.55;
+    max-width: 34ch;
+    color: rgba(242,237,230,0.85);
+  }
+  .cta-btn-ghost {
+    display: inline-block;
+    background: transparent;
+    color: var(--paper);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.05rem 2.25rem;
+    border: 1px solid rgba(242,237,230,0.3);
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s;
+    align-self: flex-start;
+  }
+  .cta-btn-ghost:hover { border-color: var(--paper); transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 1.75rem 3rem;
+    border-top: 2.5px solid var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer p {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* stagger two-col sections */
+  .two-col:nth-of-type(1) { animation: fadeUp 0.8s ease 0.25s both; }
+  .two-col:nth-of-type(2) { animation: fadeUp 0.8s ease 0.35s both; }
+  .two-col:nth-of-type(3) { animation: fadeUp 0.8s ease 0.45s both; }
+  .two-col:nth-of-type(4) { animation: fadeUp 0.8s ease 0.5s both; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 780px) {
+    .masthead { padding: 1rem 1.5rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { border-right: none; border-bottom: 1px solid var(--rule-strong); padding: 3rem 1.5rem 2.5rem; }
+    .hero-right { padding: 2.5rem 1.5rem 3rem; }
+    .two-col { grid-template-columns: 1fr; }
+    .col-label { border-right: none; border-bottom: 1px solid var(--rule); padding: 1.25rem 1.5rem; }
+    .col-label span { writing-mode: horizontal-tb; transform: none; }
+    .col-body { padding: 2rem 1.5rem; }
+    .week-grid { grid-template-columns: 1fr; }
+    .week-item { border-right: none !important; }
+    .price-block { grid-template-columns: 1fr; }
+    .price-left { border-right: none; border-bottom: 1px solid var(--rule-strong); padding: 3rem 1.5rem; }
+    .price-right { padding: 3rem 1.5rem; }
+    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <span class="masthead-title">Own Your Mind — 6-Week Cohort</span>
+  <div class="masthead-right">
+    <span class="masthead-seats">12 seats · $1,200</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div>
+      <span class="eyebrow">A 6-week cohort for independent thinkers</span>
+      <h1>Own<br>Your<br><em>Mind.</em></h1>
+    </div>
+    <p class="hero-vol">Vol. I — First Cohort</p>
+  </div>
+  <div class="hero-right">
+    <p class="hero-lede">Most people believe they form their own opinions. Most people haven't examined that belief very carefully. This program is for the ones ready to.</p>
+    <div class="hero-callout">
+      <p>The biggest thing standing between you and the life you want isn't a skill gap, a network gap, or a luck gap. It's that you've been outsourcing your thinking — and you don't fully realize it yet.</p>
+    </div>
+  </div>
+</section>
+
+<!-- THE PROBLEM -->
+<section class="two-col">
+  <div class="col-label"><span>The Problem</span></div>
+  <div class="col-body problem-body">
+    <p>There's a version of you that scrolls, absorbs, and regurgitates. That version forms opinions by osmosis — from the last thing that felt validating, from whoever sounds most confident, from the crowd consensus that's easiest to adopt. It doesn't feel like following. It feels like thinking.</p>
+    <p>That's the problem. The most externally driven people are almost always certain they're independent. The doubt never comes from outside — it lives just under the surface, in the quiet feeling that your ideas aren't quite yours, that you haven't actually tested any of this, that you'd rather not look too closely.</p>
+    <div class="pull-quote">The antidote isn't more information. It's learning to generate your own.</div>
+    <p>This cohort teaches you how to do that — using tools from mathematics, Jungian psychology, and your own direct experience. Not borrowed conclusions. Yours.</p>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section class="two-col">
+  <div class="col-label"><span>The Work</span></div>
+  <div class="col-body">
+    <div class="week-grid">
+      <div class="week-item">
+        <p class="week-num">Week 01</p>
+        <p class="week-title">The Wake-Up</p>
+        <p class="week-desc">A personal audit to see exactly how and where your thinking is being shaped by forces outside yourself. The starting line most people find confronting — and clarifying.</p>
+      </div>
+      <div class="week-item">
+        <p class="week-num">Week 02</p>
+        <p class="week-title">The Inner Signal</p>
+        <p class="week-desc">An introduction to dream analysis using Robert A. Johnson's four-step method. Your unconscious mind is already working on your behalf — this week you start listening to it.</p>
+      </div>
+      <div class="week-item">
+        <p class="week-num">Week 03</p>
+        <p class="week-title">The Proof</p>
+        <p class="week-desc">Mathematical proof logic applied to everyday reasoning. Learn to surface hidden assumptions, follow an argument to its actual conclusion, and find the counterexample that changes everything.</p>
+      </div>
+      <div class="week-item">
+        <p class="week-num">Week 04</p>
+        <p class="week-title">Projections</p>
+        <p class="week-desc">Examine the people you've put on pedestals. Understand what the pull toward them is actually telling you — and reclaim that energy for yourself instead of living through them.</p>
+      </div>
+      <div class="week-item">
+        <p class="week-num">Week 05</p>
+        <p class="week-title">Your Own Evidence</p>
+        <p class="week-desc">Design and run a personal experiment around something you've been accepting on faith. There is no data you can trust more than the kind you generate yourself.</p>
+      </div>
+      <div class="week-item">
+        <p class="week-num">Week 06</p>
+        <p class="week-title">The Independent Mind</p>
+        <p class="week-desc">Build your North Star — a living document of your actual values, opinions, and desires. The thing you return to whenever the pressure to defer, follow, or shrink begins to mount.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="two-col">
+  <div class="col-label"><span>What's Included</span></div>
+  <div class="col-body">
+    <div class="bonus-list">
+      <div class="bonus-item">
+        <span class="bonus-mark">01</span>
+        <div class="bonus-text">
+          <strong>6 Live Group Calls</strong>
+          <p>90 minutes each, every week. Real-time coaching, hot seats, and group work. The live format is intentional — this material needs conversation, not passive consumption.</p>
+        </div>
+      </div>
+      <div class="bonus-item">
+        <span class="bonus-mark">02</span>
+        <div class="bonus-text">
+          <strong>The Independent Thinker Audit</strong>
+          <p>A personal self-assessment taken at the start of Week 1. Shows you precisely where external influence has the most grip on your thinking — and where you're already strong.</p>
+        </div>
+      </div>
+      <div class="bonus-item">
+        <span class="bonus-mark">03</span>
+        <div class="bonus-text">
+          <strong>The Proof Framework</strong>
+          <p>A standalone reference guide to the mathematical reasoning tools taught in Week 3. Yours to keep and apply to any argument, opinion, or piece of advice you encounter for the rest of your life.</p>
+        </div>
+      </div>
+      <div class="bonus-item">
+        <span class="bonus-mark">04</span>
+        <div class="bonus-text">
+          <strong>Dream Journal Jumpstart</strong>
+          <p>A guided introduction to Johnson's method so you can begin building the dream journal practice from Day 1, not Week 2. The patterns that emerge over six weeks are often the most surprising thing people take away.</p>
+        </div>
+      </div>
+      <div class="bonus-item">
+        <span class="bonus-mark">05</span>
+        <div class="bonus-text">
+          <strong>Lifetime Community Access</strong>
+          <p>Every person who completes the cohort stays in the group. The network compounds over time — and the ongoing stress-testing and experiment sharing keeps the work alive long after Week 6.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section class="two-col">
+  <div class="col-label"><span>The Guarantee</span></div>
+  <div class="col-body guarantee-body">
+    <p>Show up to every call. Do every exercise. Complete every assignment.</p>
+    <p>If you hold up your end and don't finish this program feeling like you genuinely own your thinking — I'll return every dollar. No questions, no negotiation, no hard feelings.</p>
+    <p>This offer exists because I'm confident in the material, not because I think you'll need it. I built this from tools that changed things for me personally, and I've seen what happens when people actually do the work.</p>
+    <p>The guarantee is there to remove the risk from your decision. The rest is up to you.</p>
+  </div>
+</section>
+
+<!-- PRICE -->
+<section class="price-block">
+  <div class="price-left">
+    <div>
+      <span class="eyebrow">Investment</span>
+      <p class="price-figure">$1,200</p>
+      <p class="price-alt">or 2 payments of $650</p>
+    </div>
+    <div>
+      <p class="scarcity-line">12 seats maximum — not a tactic, a requirement.</p>
+      <a href="#" class="cta-btn">Claim Your Seat</a>
+    </div>
+  </div>
+  <div class="price-right">
+    <p class="price-right-heading">The cohort is small because the work demands it. Dream analysis, projection exercises, and hot seat coaching don't function in a crowd. When the 12 seats are filled, the cohort closes. The next one won't open until this one completes.</p>
+    <div>
+      <p style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.1em; color:rgba(242,237,230,0.45); margin-bottom:1rem;">Questions before committing?</p>
+      <a href="#" class="cta-btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Own Your Mind &copy; 2025</p>
+  <p>6 weeks · 12 people · 1 decision</p>
+</footer>
+
+</body>
+</html>

@@ -379,7 +379,9 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 780px) {
-    .masthead { padding: 1rem 1.5rem; }
+    .masthead { padding: 1rem 1.5rem; flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    .masthead-right { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+    .masthead-right .cta-btn { width: 100%; text-align: center; }
     .hero { grid-template-columns: 1fr; }
     .hero-left { border-right: none; border-bottom: 1px solid var(--rule-strong); padding: 3rem 1.5rem 2.5rem; }
     .hero-right { padding: 2.5rem 1.5rem 3rem; }
@@ -402,7 +404,7 @@
 <header class="masthead">
   <span class="masthead-title">Own Your Mind — 6-Week Cohort</span>
   <div class="masthead-right">
-    <span class="masthead-seats">12 seats · $1,200</span>
+    <span class="masthead-seats">12 seats · $1,200 · Starts Aug 4, 2026</span>
     <a href="https://buy.stripe.com/cNi8wH7rM6ux7tb6DRejK01" class="cta-btn" style="padding: 0.6rem 1.4rem; font-size: 10px;">Claim Your Seat</a>
   </div>
 </header>
@@ -502,6 +504,7 @@
     </div>
     <div>
       <p class="scarcity-line">12 seats maximum — not a tactic, a requirement.</p>
+      <p style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.1em; color:var(--muted); margin-bottom:1.5rem;">Starts August 4, 2026 · 6:00pm MST</p>
       <a href="https://buy.stripe.com/cNi8wH7rM6ux7tb6DRejK01" class="cta-btn">Claim Your Seat</a>
     </div>
   </div>

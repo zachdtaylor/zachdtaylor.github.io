@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Golden Vow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#111111;
+    --bg-raised:#161513;
+    --grid:rgba(176,141,43,0.08);
+    --brass:#B08D2B;
+    --brass-bright:#D4AC4A;
+    --ink:#EDEDED;
+    --ink-dim:#9A968E;
+    --ink-faint:#666;
+    --line:#2a2620;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.5;
+  }
+  .grid-bg{
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:42px 42px;
+  }
+  a{color:inherit;}
+  button{font-family:inherit;cursor:pointer;}
+  button:focus-visible, a:focus-visible{
+    outline:2px solid var(--brass-bright);
+    outline-offset:3px;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:100px 24px 110px;
+    text-align:left;
+    border-bottom:1px solid var(--line);
+  }
+  .hero .inner{max-width:640px;margin:0 auto;}
+  .tag{
+    display:inline-block;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--brass);
+    border:1px solid var(--brass);
+    padding:5px 11px;
+    letter-spacing:0.05em;
+    margin-bottom:32px;
+  }
+  h1{
+    font-family:'Fraunces',serif;
+    font-optical-sizing:auto;
+    font-weight:500;
+    font-size:clamp(40px,7vw,64px);
+    line-height:1.05;
+    color:var(--ink);
+    margin-bottom:26px;
+    letter-spacing:-0.01em;
+  }
+  .hero p.sub{
+    font-size:17px;
+    color:var(--ink-dim);
+    max-width:420px;
+    margin-bottom:40px;
+  }
+  .meta-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:24px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    color:var(--brass);
+    margin-bottom:40px;
+  }
+  .meta-row span.sep{color:var(--ink-faint);margin-right:24px;}
+  .btn-primary{
+    font-family:'JetBrains Mono',monospace;
+    font-size:14px;
+    letter-spacing:0.03em;
+    color:#111;
+    background:var(--brass);
+    border:none;
+    padding:15px 32px;
+    transition:background 0.15s ease;
+  }
+  .btn-primary:hover{background:var(--brass-bright);}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{
+    padding:80px 24px;
+    border-bottom:1px solid var(--line);
+  }
+  section .inner{max-width:640px;margin:0 auto;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--brass);
+    margin-bottom:20px;
+  }
+  h2{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:clamp(28px,4vw,36px);
+    line-height:1.15;
+    margin-bottom:28px;
+    color:var(--ink);
+  }
+
+  /* ---------- PROBLEM (mirror) ---------- */
+  .problem{background:var(--bg-raised);}
+  .problem blockquote{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(19px,2.6vw,23px);
+    line-height:1.6;
+    color:var(--ink);
+    border-left:2px solid var(--brass);
+    padding-left:24px;
+  }
+  .problem blockquote p{margin-bottom:1.1em;}
+  .problem blockquote p:last-child{margin-bottom:0;}
+  .problem blockquote .aside{
+    color:var(--ink-dim);
+    font-size:0.85em;
+  }
+
+  /* ---------- REFRAME ---------- */
+  .reframe p{
+    font-size:17px;
+    color:var(--ink-dim);
+    margin-bottom:1.3em;
+    max-width:560px;
+  }
+  .reframe p strong{
+    color:var(--ink);
+    font-weight:500;
+  }
+  .reframe .thesis{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-style:italic;
+    font-size:22px;
+    color:var(--brass-bright);
+    line-height:1.4;
+    margin-top:36px;
+    padding-top:32px;
+    border-top:1px solid var(--line);
+  }
+
+  /* ---------- SYSTEM ---------- */
+  .system{background:var(--bg-raised);}
+  .arc-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin:44px 0 18px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .arc-label:first-of-type{margin-top:0;}
+  .arc-label::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--line);
+  }
+  .arc-label .arc-name{color:var(--brass);}
+  .week{
+    display:grid;
+    grid-template-columns:64px 1fr;
+    gap:20px;
+    padding:22px 0;
+    border-top:1px solid var(--line);
+  }
+  .week:last-of-type{border-bottom:1px solid var(--line);}
+  .week .num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    color:var(--brass);
+    padding-top:3px;
+  }
+  .week h3{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:19px;
+    color:var(--ink);
+    margin-bottom:8px;
+  }
+  .week p{
+    font-size:15px;
+    color:var(--ink-dim);
+    line-height:1.6;
+  }
+  .bonus{
+    display:grid;
+    grid-template-columns:64px 1fr;
+    gap:20px;
+    padding:22px 0;
+  }
+  .bonus .num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    color:var(--ink-faint);
+    padding-top:3px;
+  }
+  .bonus h3{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:17px;
+    color:var(--ink-dim);
+    margin-bottom:6px;
+  }
+  .bonus p{
+    font-size:14px;
+    color:var(--ink-faint);
+    line-height:1.6;
+  }
+
+  /* ---------- LOGISTICS ---------- */
+  .logistics dl{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:16px 32px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:15px;
+  }
+  .logistics dt{color:var(--ink-faint);}
+  .logistics dd{color:var(--ink);}
+
+  /* ---------- GUARANTEE ---------- */
+  .guarantee{background:var(--bg-raised);}
+  .guarantee .box{
+    border:1px solid var(--brass);
+    padding:32px;
+  }
+  .guarantee p{
+    font-size:16px;
+    color:var(--ink);
+    line-height:1.7;
+  }
+
+  /* ---------- FINAL CTA ---------- */
+  .final-cta{
+    text-align:center;
+    padding:100px 24px;
+    border-bottom:none;
+  }
+  .final-cta h2{margin-bottom:36px;}
+  .final-cta .btn-primary{padding:17px 44px;font-size:15px;}
+  footer{
+    text-align:center;
+    padding:32px 24px 48px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--ink-faint);
+  }
+
+  @media (max-width:520px){
+    .hero{padding:70px 20px 80px;}
+    section{padding:60px 20px;}
+    .week, .bonus{grid-template-columns:44px 1fr;gap:14px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="hero grid-bg">
+    <div class="inner">
+      <div class="tag">COHORT 01 · 5 SEATS</div>
+      <h1>It's time to<br>start doing</h1>
+      <p class="sub">4 live calls · 5 seats · $200 each</p>
+      <button class="btn-primary" onclick="document.getElementById('cta-bottom').scrollIntoView()">CLAIM YOUR SEAT →</button>
+    </div>
+  </div>
+
+  <section class="problem">
+    <div class="inner">
+      <div class="eyebrow">Let me know if this sounds familiar</div>
+      <blockquote>
+        <p>You're in a social setting, and one of the people there is particularly magnetic. You find yourself ignoring everyone else and fixating on them. You listen intently to what they say. You judge your own choices and opinions against theirs. <span class="aside">(and theirs are obviously better)</span></p>
+        <p>You want their attention, and their approval. Actually, you don't just want it. You need it. It feels important. Like, "you'd happily re-orient your entire life around it" important.</p>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="reframe">
+    <div class="inner">
+      <div class="eyebrow">Why this happens</div>
+      <p>There's a reason why you feel this way. Your mind puts them on a pedestal because it's trying to show you your potential. You couldn't see these things in someone else unless you had a seed of it latent within you.</p>
+      <p>In certain psychology circles, they'd say that this person carries your <strong>"golden shadow"</strong>: the positive traits you possess but that you haven't yet owned.</p>
+      <p>You've already unconsciously promised yourself that you would own those things. Your mind knows they're in you, and the intensity of the attraction correlates with the number of times you've broken that promise.</p>
+      <p class="thesis">It's time to stop breaking that promise.</p>
+    </div>
+  </section>
+
+  <section class="system">
+    <div class="inner">
+      <div class="eyebrow">The system</div>
+      <h2>I call this system the Golden Vow. I'm going to teach it to you over the course of four weeks.</h2>
+
+      <div class="arc-label"><span class="arc-name">Arc 1 — Capture</span></div>
+
+      <div class="week">
+        <div class="num mono">01</div>
+        <div>
+          <h3>Projections</h3>
+          <p>In this week, we'll learn about projections. Your relationships are your best resource for figuring out what it is you need to do.</p>
+        </div>
+      </div>
+
+      <div class="week">
+        <div class="num mono">02</div>
+        <div>
+          <h3>Dreams &amp; Meditation</h3>
+          <p>Whether you realize it or not, your unconscious mind has a lot to teach you. One of the ways it does this is through your dreams. Another way is through spontaneous thought during meditation. I'll teach you a tried-and-true method for interpreting your dreams and understanding what your unconscious mind has to say about what you ought to be doing with your life.</p>
+        </div>
+      </div>
+
+      <div class="arc-label"><span class="arc-name">Arc 2 — Do</span></div>
+
+      <div class="week">
+        <div class="num mono">03</div>
+        <div>
+          <h3>Process</h3>
+          <p>In this week, we'll learn what to do with all the information we've captured in weeks 1 and 2. I'll teach you the best techniques I know for turning that raw information into things you can actually do.</p>
+        </div>
+      </div>
+
+      <div class="week">
+        <div class="num mono">04</div>
+        <div>
+          <h3>Execute</h3>
+          <p>In this week, we'll learn how to organize and track what you're doing so that you can see the progress you've made on your path.</p>
+        </div>
+      </div>
+
+      <div class="bonus">
+        <div class="num mono">+</div>
+        <div>
+          <h3>Bonus call</h3>
+          <p>A fifth call after the four weeks — a check-in on how your system is holding up in the wild.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="logistics">
+    <div class="inner">
+      <div class="eyebrow">Logistics</div>
+      <h2>What you're signing up for</h2>
+      <dl>
+        <dt>Starts</dt><dd>August 4</dd>
+        <dt>Schedule</dt><dd>One call per week, Tuesdays at 5pm MT</dd>
+        <dt>Format</dt><dd>30–60 min lecture, then optional live Q&amp;A</dd>
+        <dt>Recordings</dt><dd>Every call recorded, yours to keep forever</dd>
+        <dt>Homework</dt><dd>2–4 hours per week</dd>
+        <dt>Price</dt><dd>$200 per seat</dd>
+        <dt>Seats</dt><dd>5, this cohort only</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="guarantee">
+    <div class="inner">
+      <div class="eyebrow">The guarantee</div>
+      <div class="box">
+        <p>Come to all four live calls, submit all your homework. If you do all that and don't feel it was worth it, get on a call with me, tell me what didn't work, and I'll give you a full refund.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="final-cta grid-bg" id="cta-bottom">
+    <h2>It's time to start doing.</h2>
+    <button class="btn-primary">CLAIM YOUR SEAT →</button>
+  </div>
+
+  <footer>THE GOLDEN VOW — COHORT 01</footer>
+
+</body>
+</html>
